@@ -18,5 +18,12 @@
     Emir Turkes can be contacted at eturkes@bu.edu
 -->
 
-# pymice-modules
-Repository for PyMICE Intellicage paradigms, statistical methods, and display methods
+# PyMICE Modules
+
+PyMICE Modules is dedicated to the development of PyMICE *paradigms*, high-level
+routines as simple as calculating corner visits to analyzing following behaviors.
+Addition of statistical and figure generation methods, as well as miscellaneous
+utilities also go here. The goal is to establish a standardized API for working with the
+upstream PyMICE library. This has the potential of making the analysis pipeline highly
+modular, which will offer the user great flexibility in creating custom pipelines and
+implementing tools and techniques from third-party projects.

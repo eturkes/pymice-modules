@@ -33,6 +33,8 @@ def load_data(*args, **kwargs):
     # Merge the data.
     loaders = [pm.Loader(filename) for filename in args[0]]
     data = pm.Merger(*loaders)
+    for mouse in sorted(data.getGroup()):
+        print(mouse)
 
     # Update timeline.ini
     conf = cp.ConfigParser()

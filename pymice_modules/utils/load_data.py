@@ -18,3 +18,41 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #    Emir Turkes can be contacted at eturkes@bu.edu
+
+"""Loads the data and checks its validity."""
+
+
+import configparser as cp
+import os
+
+import pymice as pm
+
+
+def load_data(*args, **kwargs):
+    """Loads the data and checks its validity."""
+    # Merge the data.
+    loaders = [pm.Loader(filename) for filename in args[0]]
+    data = pm.Merger(*loaders)
+
+    # Update timeline.ini
+    conf = cp.ConfigParser()
+    conf.read("timeline/timeline.ini")
+    conf["Phase 1"]["start"] = kwargs["start"]
+    conf["Phase 1"]["end"] = kwargs["end"]
+    with open(os.path.join("timeline/timeline.ini"), "w") as file:
+        conf.write(file)
+
+    # Read in period of analysis from timeline.ini.
+    timeline = pm.Timeline("timeline/timeline.ini")
+    start, end = timeline.getTimeBounds("Phase 1")
+
+    # Check for any problems (indicated in the log) during the period of interest.
+    data_validator = pm.DataValidator(pm.PresenceLogAnalyzer())
+    validator_report = data_validator(data)
+    no_presence_problems = pm.FailureInspector("Presence")
+    if no_presence_problems(validator_report, (start, end)):
+        pass
+    else:
+        print("Possible transponder problems")
+
+    return data, start, end

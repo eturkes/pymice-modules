@@ -19,6 +19,7 @@
 -->
 
 # PyMICE Modules
+#### *This project is a work-in-progress*
 
 PyMICE Modules is dedicated to the development of PyMICE *paradigms*, high-level
 routines as simple as calculating corner visits to analyzing following behaviors.
